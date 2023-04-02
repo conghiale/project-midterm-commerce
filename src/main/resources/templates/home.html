@@ -33,10 +33,12 @@
 
 <div class="categories">
     <div class="task_bar">
-        <ul class="list" th:each="category : ${categories}">
-            <a th:href="@{/get-products/__${category.id}__}">
-                <li th:text="${category.name}"></li>
-            </a>
+        <ul class="list">
+            <th:block th:each="category : ${categories}">
+                <a th:href="@{/get-products/__${category.id}__}">
+                    <li th:text="${category.name}"></li>
+                </a>
+            </th:block>
         </ul>
         <ul class="manage">
             <li>
