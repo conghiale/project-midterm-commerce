@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <script src="https://kit.fontawesome.com/b6f3c45133.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="title_Web">
+    <h1>COMMERCIAL WEB</h1>
+</div>
+
+<div class="wrapper_top">
+    <a href="index.html" class="task_btn dropbtn wrapper_top_home"><i class="fa-solid fa-house"></i></a>
+    <div class="wrapper_top_search">
+        <input type="text" placeholder="Search">
+        <div><i class="fa-solid fa-magnifying-glass"></i></div>
+    </div>
+</div>
+
+<div class="categories">
+    <div class="task_bar">
+        <ul class="list" th:each="category : ${categories}">
+            <a th:href="@{/get-products/__${category.id}__}">
+                <li th:text="${category.name}"></li>
+            </a>
+        </ul>
+        <ul class="manage">
+            <li>
+                <div class="dropbtn"><i class="fa-solid fa-cart-shopping"></i></div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#">User</a>
+                        <a href="#">Log Out</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="present">
+    <ul class="row">
+        <th:block th:each="product : ${products}">
+            <li class="col-3">
+                <div class="product-box ">
+                    <div class="product-image">
+                        <img th:src="@{/img/__${product.image}__}" alt="Product Image">
+                    </div>
+                    <div class="product-details">
+                        <h2 class="product-name" th:text="${product.name}"></h2>
+                        <p class="product-price" th:text="${product.price}"></p>
+                        <div class="product-color-brand">
+                            <p class="product-color">
+                                <b>Color: </b>
+                                <span class="product-color-value" th:text="${product.color}"></span>
+                            </p>
+                            <p class="product-brand">
+                                <b>Brand: </b>
+                                <span class="product-brand-value" th:text="${product.brandId.name}"></span>
+                            </p>
+                        </div>
+                        <p class="product-desc" th:text="${product.description}"></p>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-footer-button button-add-to-card">
+                            <a th:href="@{/detail-product/__${product.id}__}">
+                                <button type="button" class="btn btn-primary" >Detail</button>
+                            </a>
+                        </div>
+                        <div class="product-footer-button button-detai">
+                            <a th:href="@{/buy/__${product.id}__}">
+                                <button type="button" class="btn btn-info">buy</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </th:block>
+    </ul>
+</div>
+
+<h1>Dynamic Pagination</h1>
+<div class="page-container">
+    <button class="first-page" disabled>
+        <i class="fas fa-angle-double-left"></i>
+    </button>
+    <button class="prev-page" disabled>
+        <i class="fas fa-angle-left"></i>
+    </button>
+    <div id="pagination"></div>
+    <button class="next-page">
+        <i class="fas fa-angle-right"></i>
+    </button>
+    <button class="last-page">
+        <i class="fas fa-angle-double-right"></i>
+    </button>
+</div>
+
+<div class="settings">
+    <div class="form-input">
+        <label>Truncation</label>
+        <div class="wrapper-form-check">
+            <div class="form-check">
+                <input
+                        class="check"
+                        type="radio"
+                        checked
+                        name="enable"
+                        id="enable"
+                />
+                <label for="enable">Enable</label>
+            </div>
+            <div class="form-check">
+                <input class="check" type="radio" name="enable" id="disable" />
+                <label for="disable">Disable</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-input">
+        <label for="pages">Number of pages:</label>
+        <input type="number" min="1" id="pages" value="10" />
+    </div>
+    <div class="form-input">
+        <label for="curpage">Current page:</label>
+        <input type="number" min="1" id="curpage" value="1" />
+    </div>
+
+    <div class="form-input">
+        <label for="delta">Number of links two side of current page</label>
+        <input type="number" id="delta" min="1" max="5" value="1" />
+    </div>
+</div>
+
+    <script th:src="@{/js/home.js}"></script>
+</body>
+</html>

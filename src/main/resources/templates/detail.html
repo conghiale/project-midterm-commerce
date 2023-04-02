@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+	  	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	  	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}"/>
+    <script
+        src="https://kit.fontawesome.com/b6f3c45133.js"
+        crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="title_Web">
+        <h1>COMMERCIAL WEB</h1>
+    </div>
+
+    <div class="wrapper_top">
+      <a href="index.html" class="task_btn dropbtn wrapper_top_home"><i class="fa-solid fa-house"></i></a>
+      <div class="wrapper_top_search">
+        <input type="text" placeholder="Search">
+        <div><i class="fa-solid fa-magnifying-glass"></i></div>
+      </div>
+    </div>
+
+    <div class="categories">
+		<div class="task_bar">
+			<ul class="list">
+				<li>Vi xử lý</li>
+				<li>Bo mạch chủ</li>
+				<li>Ram</li>
+				<li>HDD</li>
+				<li>SSD</li>
+				<li>Card màn hình</li>
+				<li>Nguồn</li>
+				<li>Vỏ case</li>
+				<li>Tản nhiệt</li>
+				<li>Màn hình</li>
+				<li>Bàn phím</li>
+				<li>Chuột</li>
+			</ul>
+			<ul class="manage">
+				<li>
+					<div class="dropbtn"><i class="fa-solid fa-cart-shopping"></i></div>
+				</li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+						<div class="dropdown-content">
+							<a href="#">User</a>
+							<a href="#">Log Out</a>
+						</div>
+						</div>
+				</li>
+			</ul>
+		</div>
+    </div>
+    
+
+    <div class="wrapper_content row">
+		<div class="wrapper_content_product col-9">
+			<div class="wrapper_product_left col-5">
+				<div class="wrapper_product_image">
+					<img th:src="@{/img/__${product.image}__}" alt="Image product">
+				</div>
+				<div class="wrapper_product_left_line"></div>
+				<div class="wrapper_product_description">
+					<div class="mb-3">
+						<label for="wrapper_product_description_input" class="form-label"><b>Description</b></label>
+						<textarea class="form-control" id="wrapper_product_description_input" rows="18" th:text="${product.description}" readonly></textarea>
+					</div>
+					<!-- <p class="p_margin_0 ">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</p> -->
+				</div>
+			</div>
+			<div class="wrapper_product_right col-7">
+				<div class="wrapper_product_name">
+					<h3 th:text="${product.name}"></h3>
+				</div>
+				<div class="wrapper_product_brand">
+					<p class="p_margin_0 wrapper_product_brand_label">Brand: </p>
+					<p class="wrapper_product_brand_value" th:text="${product.brandId.name}"></p>
+				</div>
+				<div class="wrapper_product_color">
+					<p class="p_margin_0 wrapper_product_color_label">Color: </p> 
+					<p class="wrapper_product_color_value" th:text="${product.color}"></p>
+				</div>
+				<div class="wrapper_product_price">
+					<p class="p_margin_0 wrapper_product_price_value" th:text="${product.price}"></p>
+				</div>
+				<div class="wrapper_product_right_line"></div>
+				<div class="promotion_title">
+					<p class="p_margin_0 promotion_received">KHUYẾN MÃI ĐÃ NHẬN</p>
+				</div>
+				<div class="promotion">
+					<div class="wrapper_promotion">
+						<div class="wrapper_promotion_icon"><i class="fa-solid fa-gift" style="color: #ec131e;"></i></div>
+						<div class="wrapper_promotion_content">
+							<p class="p_margin_0 wrapper_promotion_content_value">1x Mã giảm thêm 150.000đ cho Tai nghe gaming Zidli hoặc chuột Microsoft</p>
+						</div>
+					</div>
+					<div class="wrapper_promotion">
+						<div class="wrapper_promotion_icon"><i class="fa-solid fa-gift" style="color: #ec131e;"></i></div>
+						<div class="wrapper_promotion_content">
+							<p class="p_margin_0 wrapper_promotion_content_value">1x Túi đựng laptop 15''</p>
+						</div>
+					</div>
+					<div class="wrapper_promotion">
+						<div class="wrapper_promotion_icon"><i class="fa-solid fa-gift" style="color: #ec131e;"></i></div>
+						<div class="wrapper_promotion_content">
+							<p class="p_margin_0 wrapper_promotion_content_value">1x Tai nghe HyperX Cloud Stinger Core II (683L9AA) (Quà tặng)</p>
+						</div>
+					</div>
+				</div>
+				<div class="wrapper_product_button">
+					<div class="product_button wrapper_product_button_back">
+						<button type="button" class="btn btn-secondary">Back</button>
+					</div>
+					<div class="product_button wrapper_product_button_buy">
+						<button type="button" class="btn btn-primary">Add To Card</button>
+					</div>
+				</div>
+				<div class="wrapper_product_left_line"></div>
+				<div class="related_promotion">
+					<div class="related_promotion_title">
+						<p class="p_margin_0 related_promotion_title_value">KHUYẾN MÃI LIÊN QUAN</p>
+					</div>
+					<ul>
+						<li class="related_promotion_content">
+							<p class="p_margin_0 related_promotion_content_value">Hỗ trợ trả góp với đơn hàng từ 3.000.000đ.</p>
+						</li>
+						<li class="related_promotion_content">
+							<p class="p_margin_0 related_promotion_content_value">Nhập mã VNPAYPV</p>
+							<ul>
+								<li class="related_promotion_content_2">
+									<p class="p_margin_0 related_promotion_content_value">Tặng ngay <span class="sell_price">100.000đ</span> cho mỗi giao dịch thành công từ 4,000,000đ</p>
+								</li>
+								<li class="related_promotion_content_2">
+									<p class="p_margin_0 related_promotion_content_value">Tặng ngay <span class="sell_price">200.000đ</span> cho mỗi giao dịch thành công từ 15,000,000đ</p>
+								</li>
+								<li class="related_promotion_content_2">
+									<p class="p_margin_0 related_promotion_content_value">Tặng ngay <span class="sell_price">300.000đ</span> cho mỗi giao dịch thành công từ 25,000,000đ
+										khi thanh toán qua VNPAY-QR</p>
+								</li>
+							</ul>
+						</li>
+						<li class="related_promotion_content">
+							<p class="p_margin_0 related_promotion_content_value">Nhận voucher giảm 600.000đ cho đơn từ 1.200.000đ khi hoàn thành mở thẻ TPBank EVO.</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper_content_store col-3">
+			<div class="wrapper_content_store_name">
+				<div class="store_icon">
+					<img src="/img/imgProduct.jpg" alt="Image store">
+				</div>
+				<div class="store_name">
+					<p class="p_margin_0 store_name_value">CÔNG TY CỔ PHẨN THƯƠNG MẠI DỊCH VỤ CÔNG NGHĨA</p>
+				</div>
+			</div>
+			<div class="wrapper_content_store_endow">
+				<div class="transport">
+					<div class="transport_icon">
+						<i class="fa-solid fa-van-shuttle" style="color: #19ae1b;"></i>
+					</div>
+					<div class="transport_text">
+						<p class="p_margin_0 transport_text_value">Sản phẩm được miễn phí giao hàng</p>
+					</div>
+				</div>
+				<div class="wrapper_content_store_line"></div>
+				<div class="sales_policy">
+					<p class="p_margin_0 sales_policy_text">CHÍNH SÁCH BÁN HÀNG</p>
+				</div>
+				<div class="wrapper_sales_policy">
+					<div class="sales_policy_icon">
+						<i class="fa-solid fa-car-side" style="color: #ec131e;"></i>
+					</div>
+					<div class="wrapper_sales_policy_text">
+						<p class="p_margin_0 wrapper_sales_policy_text_value">Miễn phí giao hàng cho đơn hàng từ 800K</p>
+					</div>
+				</div>
+				<div class="wrapper_sales_policy">
+					<div class="sales_policy_icon">
+						<i class="fa-solid fa-shield-heart" style="color: #ec131e;"></i>
+					</div>
+					<div class="wrapper_sales_policy_text">
+						<p class="p_margin_0 wrapper_sales_policy_text_value">Cam kết hàng chính hãng 100%</p>
+					</div>
+				</div>
+				<div class="wrapper_sales_policy">
+					<div class="sales_policy_icon">
+						<i class="fa-solid fa-arrows-rotate" style="color: #ec131e;"></i>
+					</div>
+					<div class="wrapper_sales_policy_text">
+						<p class="p_margin_0 wrapper_sales_policy_text_value">Miễn phí giao hàng cho đơn hàng từ 800K</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+    
+    <h1>Dynamic Pagination</h1>
+    <div class="page-container">
+      <button class="first-page" disabled>
+        <i class="fas fa-angle-double-left"></i>
+      </button>
+      <button class="prev-page" disabled>
+        <i class="fas fa-angle-left"></i>
+      </button>
+      <div id="pagination"></div>
+      <button class="next-page">
+        <i class="fas fa-angle-right"></i>
+      </button>
+      <button class="last-page">
+        <i class="fas fa-angle-double-right"></i>
+      </button>
+    </div>
+
+    <div class="settings">
+        <div class="form-input">
+          <label>Truncation</label>
+          <div class="wrapper-form-check">
+            <div class="form-check">
+              <input
+                class="check"
+                type="radio"
+                checked
+                name="enable"
+                id="enable"
+              />
+              <label for="enable">Enable</label>
+            </div>
+            <div class="form-check">
+              <input class="check" type="radio" name="enable" id="disable" />
+              <label for="disable">Disable</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-input">
+          <label for="pages">Number of pages:</label>
+          <input type="number" min="1" id="pages" value="10" />
+        </div>
+        <div class="form-input">
+          <label for="curpage">Current page:</label>
+          <input type="number" min="1" id="curpage" value="1" />
+        </div>
+  
+        <div class="form-input">
+          <label for="delta">Number of links two side of current page</label>
+          <input type="number" id="delta" min="1" max="5" value="1" />
+        </div>
+      </div>
+
+    <!-- <script src="./index.js"></script> -->
+  </body>
+</html>

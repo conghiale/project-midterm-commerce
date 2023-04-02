@@ -1,1 +1,1 @@
-# project-midterm-commerce
+# midterm_project_commerce
