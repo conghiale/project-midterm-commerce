@@ -4,6 +4,7 @@ import com.example.springcommerce.model.Customer;
 import com.example.springcommerce.model.Product;
 import com.example.springcommerce.service.ICustomerService;
 import com.example.springcommerce.service.IProductService;
+import com.example.springcommerce.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Controller
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/customer")
 public class CommerceController2 {
     @Autowired
     private IProductService productService;
@@ -28,6 +29,7 @@ public class CommerceController2 {
         Customer customer = customerService.selectById(customerId);
 
         Set<Product> products = customer.getProducts();
+        for(Product)
         if (products.size() == 0) {
             mv.addObject("status", "warning");
             mv.addObject("message", "There are no products in the cart");
@@ -37,7 +39,7 @@ public class CommerceController2 {
         return mv;
     }
 
-    @GetMapping(value = "/product/{id}")
+    @GetMapping(value = "/detail-product/{id}")
     public ModelAndView informationProduct(@PathVariable String productId, HttpSession session) {
         ModelAndView mv = new ModelAndView("detail");
 //        UUID customerId = UUID.fromString(String.valueOf(session.getAttribute("customerId")));
@@ -52,17 +54,19 @@ public class CommerceController2 {
         return mv;
     }
 
-    @PostMapping(value = "/addToCart/{id}")
-    public ModelAndView addToCart(@PathVariable String productId, HttpSession session) {
+    @GetMapping(value = "/add-to-card-product/{id}")
+    public ModelAndView addToCart(@PathVariable String id, HttpSession session) {
+        System.out.println("CommerceController2 -- line57");
         ModelAndView mv = new ModelAndView("redirect:/home");
         UUID customerId = UUID.fromString(String.valueOf(session.getAttribute("customerId")));
         Customer customer = customerService.selectById(customerId);
-        int idProduct = Integer.parseInt(productId);
+        int productId = Integer.parseInt(id);
 
-        Product product = customer.getProducts().stream().filter(p -> p.getId() == idProduct).findAny().orElse(null);
+        Product product = customer.getProducts().stream().filter(p -> p.getId() == productId).findAny().orElse(null);
         if (product != null) {
             product.setQuantity(product.getQuantity() + 1);
         } else {
+            product = productService.selectById(productId);
             customer.getProducts().add(new Product(product.getId(), product.getName(), product.getQuantity(), product.getPrice(),
                     product.getColor(), product.getDescription(), product.getImage(), product.getBrandId()));
         }
