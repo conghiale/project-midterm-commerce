@@ -188,6 +188,7 @@ public class CommerceController {
 //        return modelAndView;
 //    }
 
+    //Cart
     @ModelAttribute("cart")
     public Cart setupCart() {
         return new Cart();
