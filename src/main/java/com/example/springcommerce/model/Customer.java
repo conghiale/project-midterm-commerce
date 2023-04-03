@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -20,6 +21,7 @@ public class Customer {
     private String password;
     private LocalDate dob;
     private String gender;
+    private HashMap<String, Integer> hashMapProduct;
 
     @OneToMany(mappedBy = "customerId")
     private Set<Order> orders = new HashSet<>();

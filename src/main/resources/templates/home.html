@@ -61,14 +61,17 @@
 <div class="present">
     <ul class="row">
         <th:block th:each="product : ${products}">
-            <li class="col-3">
+            <li class="col-md-3">
                 <div class="product-box ">
                     <div class="product-image">
                         <img th:src="@{/img/__${product.image}__}" alt="Product Image">
                     </div>
                     <div class="product-details">
                         <h2 class="product-name" th:text="${product.name}"></h2>
-                        <p class="product-price" th:text="${product.price}"></p>
+                        <div class="product-price">
+                            <p class="product-price product-price-icon">$</p>
+                            <p class="product-price product-price-value" th:text="${product.price}"></p>
+                        </div>
                         <div class="product-color-brand">
                             <p class="product-color">
                                 <b>Color: </b>
@@ -83,13 +86,13 @@
                     </div>
                     <div class="product-footer">
                         <div class="product-footer-button button-add-to-card">
-                            <a th:href="@{/detail-product/__${product.id}__}">
+                            <a th:href="@{/customer/detail-product/__${product.id}__}">
                                 <button type="button" class="btn btn-primary" >Detail</button>
                             </a>
                         </div>
                         <div class="product-footer-button button-detai">
-                            <a th:href="@{/buy/__${product.id}__}">
-                                <button type="button" class="btn btn-info">buy</button>
+                            <a th:href="@{/customer/add-to-card-product/__${product.id}__}">
+                                <button type="button" class="btn btn-info">Add to card</button>
                             </a>
                         </div>
                     </div>
