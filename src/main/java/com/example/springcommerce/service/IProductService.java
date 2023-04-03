@@ -11,5 +11,5 @@ public interface IProductService {
     public Product insert(Product product);
     public boolean deleteById(int id);
     public Product update(int id, Product productUpdate);
-//    List<Product> findAllByCategory(Category category);
+//    Iterable<Product> findAllByCategory(Category category);
 }

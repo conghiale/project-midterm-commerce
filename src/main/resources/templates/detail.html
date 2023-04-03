@@ -127,7 +127,9 @@
 						<button type="button" class="btn btn-secondary">Back</button>
 					</div>
 					<div class="product_button wrapper_product_button_buy">
-						<button type="button" class="btn btn-primary">Add To Card</button>
+						<a th:href="@{/addtocard/__${product.id}__(action='list')}">
+							<button type="button" class="btn btn-primary" >Add To Card</button>
+						</a>
 					</div>
 				</div>
 				<div class="wrapper_product_left_line"></div>

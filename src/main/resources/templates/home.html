@@ -42,7 +42,7 @@
         </ul>
         <ul class="manage">
             <li>
-                <div class="dropbtn"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="dropbtn"><a th:href="@{/cart}"><i class="fa-solid fa-cart-shopping"></i></a></div>
             </li>
             <li>
                 <div class="dropdown">
@@ -88,8 +88,8 @@
                             </a>
                         </div>
                         <div class="product-footer-button button-detai">
-                            <a th:href="@{/buy/__${product.id}__}">
-                                <button type="button" class="btn btn-info">buy</button>
+                            <a th:href="@{/addtocard/__${product.id}__(action='list')}">
+                                <button type="button" class="btn btn-info">Add To Card</button>
                             </a>
                         </div>
                     </div>

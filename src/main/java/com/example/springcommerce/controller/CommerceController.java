@@ -1,5 +1,6 @@
 package com.example.springcommerce.controller;
 
+import com.example.springcommerce.model.Cart;
 import com.example.springcommerce.model.Category;
 import com.example.springcommerce.model.Customer;
 import com.example.springcommerce.model.Product;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
+@SessionAttributes("cart")
 public class CommerceController {
 
     @Autowired
@@ -178,11 +180,34 @@ public class CommerceController {
 //    @GetMapping("/get-products/{id}")
 //    public ModelAndView displayCategory(@PathVariable("id") Integer id){
 //        Optional<Category> categories = categoryService.findById(id);
-//        List<Product> products = productService.findAllByCategory(categories.get());
+//        Iterable<Product> products = productService.findAllByCategory(categories.get());
 //
 //        ModelAndView modelAndView = new ModelAndView("home");
 //        modelAndView.addObject("categories", categories.get());
 //        modelAndView.addObject("products", products);
 //        return modelAndView;
 //    }
+
+    @ModelAttribute("cart")
+    public Cart setupCart() {
+        return new Cart();
+    }
+
+    @GetMapping("/addtocard/{id}")
+    public String addToCart(@PathVariable Integer id, @ModelAttribute Cart cart, @RequestParam("action") String action) {
+        Product product = productService.selectById(id);
+        if (action.equals("show")) {
+            cart.addProduct(product);
+            return "redirect:/cart";
+        }
+        cart.addProduct(product);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/deletetocard/{id}")
+    public String deleteToCart(@PathVariable Integer id, @ModelAttribute Cart cart) {
+        Product product = productService.selectById(id);
+        cart.deleteProduct(product);
+        return "/cart";
+    }
 }

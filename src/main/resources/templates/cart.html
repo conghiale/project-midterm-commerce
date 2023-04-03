@@ -71,85 +71,146 @@
     </ul>
   </div>
 
-  <div class="present">
-    <ul>
-      <li class="s1">
-        <div class="product">1</div>
-      </li>
-      <li class="s2">
-        <div class="product">
-          <div class="product_image">
-            <img src="img/imgProduct.jpg">
+  <th:block th:each="product,iterStat : ${cart.products}">
+    <div class="present">
+      <ul>
+        <li class="s1">
+          <div class="product" th:text="${iterStat.index}+1"></div>
+        </li>
+        <li class="s2">
+          <div class="product">
+            <div class="product_image">
+              <img th:src="@{/img/__${product.getKey().image}__}">
+            </div>
+            <div class="info">
+              <ul>
+                <li>
+                  <h2 class="product_name" th:text="${product.getKey().name}"></h2>
+                </li>
+                <li class="product-color-brand">
+                  <div class="product_color">
+                    <b>Color: </b>
+                    <span class="product_color_value" th:text="${product.getKey().color}"></span>
+                  </div>
+                  <div class="product_brand">
+                    <b>Brand: </b>
+                    <span class="product_brand_value" th:text="${product.getKey().brandId.name}"></span>
+                  </div>
+                </li>
+                <li >
+                  <div class="product_desc" th:text="${product.getKey().description}"></div>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="info">
-            <ul>
-              <li>
-                <h2 class="product_name">Product Name</h2>
-              </li>
-              <li class="product-color-brand">
-                <div class="product_color"><b>Color: </b><span class="product_color_value">Red</span></div>
-                <div class="product_brand"><b>Brand: </b><span class="product_brand_value">Red</span></div>
-              </li>
-              <li >
-                <div class="product_desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư. Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</div>
-              </li>
-            </ul>
+        </li>
+        <li class="s3">
+          <div class="product">
+            <span th:text="${product.getValue()}"></span>
+            <a id="increase_button" th:href="@{/addtocard/__${product.getKey().id}__(action='show')}"
+               th:text="${'+'}"></a>
           </div>
-        </div>
-      </li>
-      <li class="s3">
-        <div class="product">1</div>
-      </li>
-      <li class="s4">
-        <div class="product">1.000.000</div>
-      </li>
-      <li class="s5">
-        <div class="product">
-          <i class="fa-solid fa-trash-can"></i>
-        </div>
-      </li>
-    </ul>
+        </li>
+        <li class="s4">
+          <div class="product" th:text="${product.getKey().price}"></div>
+        </li>
+        <li class="s5">
+          <div class="product">
+            <a th:href="@{/deletetocard/__${product.getKey().id}__}">
+              <i class="fa-solid fa-trash-can"></i>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </th:block>
+  <div>
+    <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+    <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+    <p style="color: red; font-size: 20px; font-weight: bold">Total:
+      <span th:text="${cart.countTotalPayment()}"></span>
+    </p>
   </div>
 
-  <div class="present">
-    <ul>
-      <li class="s1">
-        <div class="product">2</div>
-      </li>
-      <li class="s2">
-        <div class="product">
-          <div class="product_image">
-            <img src="img/imgProduct.jpg">
-          </div>
-          <div class="info">
-            <ul>
-              <li>
-                <h2 class="product_name">Product Name</h2>
-              </li>
-              <li class="product-color-brand">
-                <div class="product_color"><b>Color: </b><span class="product_color_value">Red</span></div>
-                <div class="product_brand"><b>Brand: </b><span class="product_brand_value">Red</span></div>
-              </li>
-              <li >
-                <div class="product_desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư. Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li class="s3">
-        <div class="product">1</div>
-      </li>
-      <li class="s4">
-        <div class="product">1.000.000</div>
-      </li>
-      <li class="s5">
-        <div class="product">
-          <i class="fa-solid fa-trash-can"></i>
-        </div>
-      </li>
-    </ul>
-  </div>
+<!--  <div class="present">-->
+<!--    <ul>-->
+<!--      <li class="s1">-->
+<!--        <div class="product">1</div>-->
+<!--      </li>-->
+<!--      <li class="s2">-->
+<!--        <div class="product">-->
+<!--          <div class="product_image">-->
+<!--            <img src="img/imgProduct.jpg">-->
+<!--          </div>-->
+<!--          <div class="info">-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <h2 class="product_name">Product Name</h2>-->
+<!--              </li>-->
+<!--              <li class="product-color-brand">-->
+<!--                <div class="product_color"><b>Color: </b><span class="product_color_value">Red</span></div>-->
+<!--                <div class="product_brand"><b>Brand: </b><span class="product_brand_value">Red</span></div>-->
+<!--              </li>-->
+<!--              <li >-->
+<!--                <div class="product_desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư. Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--      <li class="s3">-->
+<!--        <div class="product">1</div>-->
+<!--      </li>-->
+<!--      <li class="s4">-->
+<!--        <div class="product">1.000.000</div>-->
+<!--      </li>-->
+<!--      <li class="s5">-->
+<!--        <div class="product">-->
+<!--          <i class="fa-solid fa-trash-can"></i>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+
+<!--  <div class="present">-->
+<!--    <ul>-->
+<!--      <li class="s1">-->
+<!--        <div class="product">2</div>-->
+<!--      </li>-->
+<!--      <li class="s2">-->
+<!--        <div class="product">-->
+<!--          <div class="product_image">-->
+<!--            <img src="img/imgProduct.jpg">-->
+<!--          </div>-->
+<!--          <div class="info">-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <h2 class="product_name">Product Name</h2>-->
+<!--              </li>-->
+<!--              <li class="product-color-brand">-->
+<!--                <div class="product_color"><b>Color: </b><span class="product_color_value">Red</span></div>-->
+<!--                <div class="product_brand"><b>Brand: </b><span class="product_brand_value">Red</span></div>-->
+<!--              </li>-->
+<!--              <li >-->
+<!--                <div class="product_desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư. Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--      <li class="s3">-->
+<!--        <div class="product">1</div>-->
+<!--      </li>-->
+<!--      <li class="s4">-->
+<!--        <div class="product">1.000.000</div>-->
+<!--      </li>-->
+<!--      <li class="s5">-->
+<!--        <div class="product">-->
+<!--          <i class="fa-solid fa-trash-can"></i>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
 
   <h1>Dynamic Pagination</h1>
   <div class="page-container">
