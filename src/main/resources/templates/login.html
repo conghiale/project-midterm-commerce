@@ -11,7 +11,8 @@
 <body>
     <div>
         <div class="container">
-            <form action="/login" method="post" id="formLogin">
+<!--            <form action="/login" method="post" id="formLogin"  th:action="@{/j_spring_security_check}" >-->
+            <form method="post" id="formLogin"  th:action="@{/j_spring_security_check}" >
                 <h1>Đăng nhập</h1>
                 <label for="username">Tên đăng nhập</label>
                 <input type="text" id="username" placeholder="Nhập tên đăng nhập" name="username">

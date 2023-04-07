@@ -61,14 +61,17 @@
 <div class="present">
     <ul class="row">
         <th:block th:each="product : ${products}">
-            <li class="col-3">
+            <li class="col-md-3">
                 <div class="product-box ">
                     <div class="product-image">
                         <img th:src="@{/img/__${product.image}__}" alt="Product Image">
                     </div>
                     <div class="product-details">
                         <h2 class="product-name" th:text="${product.name}"></h2>
-                        <p class="product-price" th:text="${product.price}"></p>
+                        <div class="product-price">
+                            <p class="product-price product-price-icon">$</p>
+                            <p class="product-price product-price-value" th:text="${product.price}"></p>
+                        </div>
                         <div class="product-color-brand">
                             <p class="product-color">
                                 <b>Color: </b>
@@ -83,7 +86,7 @@
                     </div>
                     <div class="product-footer">
                         <div class="product-footer-button button-add-to-card">
-                            <a th:href="@{/detail-product/__${product.id}__}">
+                            <a th:href="@{/customer/detail-product/__${product.id}__}">
                                 <button type="button" class="btn btn-primary" >Detail</button>
                             </a>
                         </div>
@@ -98,6 +101,68 @@
         </th:block>
     </ul>
 </div>
+
+
+<div class="present">
+    <ul class="row">
+        <li class="col-md-3">
+            <div class="product-box ">
+                <div class="product-image">
+                    <img src="img/imgProduct.jpg" alt="Product Image">
+                </div>
+                <div class="product-details">
+                    <h2 class="product-name">Product Name </h2>
+                    <p class="product-price">$19.99</p>
+                    <div class="product-color-brand">
+                        <p class="product-color"><b>Color: </b> <span class="product-color-value">Red</span></p>
+                        <p class="product-brand"><b>Brand: </b> <span class="product-brand-value">Name</span></p>
+                    </div>
+                    <p class="product-desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</p>
+                </div>
+                <div class="product-footer">
+                    <div class="product-footer-button button-add-to-card">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                    <div class="product-footer-button button-add-to-card">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="product-footer-button button-detai">
+                        <button type="button" class="btn btn-info">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="col-3">
+            <div class="product-box ">
+                <div class="product-image">
+                    <img src="img/imgProduct.jpg" alt="Product Image">
+                </div>
+                <div class="product-details">
+                    <h2 class="product-name">Product Name </h2>
+                    <p class="product-price">$19.99</p>
+                    <div class="product-color-brand">
+                        <p class="product-color"><b>Color: </b> <span class="product-color-value">Red</span></p>
+                        <p class="product-brand"><b>Brand: </b> <span class="product-brand-value">Name</span></p>
+                    </div>
+                    <p class="product-desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</p>
+                </div>
+                <div class="product-footer">
+                    <div class="product-footer-button button-add-to-card">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                    <div class="product-footer-button button-add-to-card">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="product-footer-button button-detai">
+                        <button type="button" class="btn btn-info">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
 
 <h1>Dynamic Pagination</h1>
 <div class="page-container">

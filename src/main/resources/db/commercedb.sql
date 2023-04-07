@@ -105,14 +105,13 @@ INSERT INTO `categories` VALUES
 	(10,'Bàn Phím'),
 	(11,'Chuột');
 
-INSERT INTO `customers` VALUES 
-	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1990-01-01','customer1@example.com','male','Customer 1','123456','customer1'),
-	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1995-02-02','customer2@example.com','female','Customer 2','123456','customer2'),
-	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1985-03-03','customer3@example.com','male','Customer 3','123456','customer3'),
-	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1993-04-04','customer4@example.com','female','Customer 4','123456','customer4'),
-	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1998-05-05','customer5@example.com','male','Customer 5','123456','customer5');
-	-- (_binary 'xv\ÍÊ5Ib¦Fü²TÛ¤','2023-04-03','nghia@gmail.com','female','Lê Công Nghĩa','123456','conghiale');
-    
+INSERT INTO `customers`(`id`,`dob`,`email`,`gender`,`name`,`username`,`password`,`id_role`) VALUES 
+	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1990-01-01','customer1@example.com','male','Customer 1','customer1','123456',2),
+	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1995-02-02','customer2@example.com','female','Customer 2','customer2','123456',2),
+	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1985-03-03','customer3@example.com','male','Customer 3','customer3','123456',2),
+	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1993-04-04','customer4@example.com','female','Customer 4','customer4','$2a$10$cXLhDoWy5nkH0bRAXtxR4Onf6N65iiveeXs/71L0TP0/7GwBfsD2i',1),
+	(_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','1998-05-05','customer5@example.com','male','Customer 5','customer5','$2a$10$cXLhDoWy5nkH0bRAXtxR4Onf6N65iiveeXs/71L0TP0/7GwBfsD2i',2);
+
 INSERT INTO `orders` VALUES 
 	(1,'123 Main St',50,'2023-01-01','0826611778',_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0'),
 	(2,'456 Oak Ave',75,'2023-02-01','0826611779',_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0'),
@@ -142,4 +141,7 @@ INSERT INTO `products` VALUES
 	(14,'Yellow','Product description 14','image1.jpg','Product name 14',140,1400,4,3),
 	(15,'Black','Product description 15','image1.jpg','Product name 15',150,1500,5,4);
 
+INSERT INTO `roles`(`name`, `description`) VALUES
+	('ROLE_ADMIN', 'Quản trị viên'),
+	('ROLE_CUSTOMER', 'Khách hàng');
 

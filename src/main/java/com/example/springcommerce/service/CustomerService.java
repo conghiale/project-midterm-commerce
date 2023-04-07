@@ -3,6 +3,7 @@ package com.example.springcommerce.service;
 import com.example.springcommerce.model.Customer;
 import com.example.springcommerce.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,10 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public Customer insert(Customer customer) {
+        if(!customer.getPassword().isEmpty()){
+            String hashedPassword = BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt(10));
+            customer.setPassword(hashedPassword);
+        }
         return customerRepository.save(customer);
     }
 

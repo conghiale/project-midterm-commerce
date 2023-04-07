@@ -1,25 +1,28 @@
 package com.example.springcommerce.controller;
 
-import com.example.springcommerce.model.Cart;
-import com.example.springcommerce.model.Category;
-import com.example.springcommerce.model.Customer;
-import com.example.springcommerce.model.Product;
-import com.example.springcommerce.service.CategoryService;
+import com.example.springcommerce.model.*;
+import com.example.springcommerce.service.ICategoryService;
 import com.example.springcommerce.service.ICustomerService;
-import com.example.springcommerce.service.ProductService;
+import com.example.springcommerce.service.IProductService;
+import com.example.springcommerce.service.IRoleService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -30,16 +33,25 @@ public class CommerceController {
     private ICustomerService customerService;
 
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
 
     @Autowired
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
 
-    @GetMapping(value = "/")
-    public String _login() {
-        return "redirect:/login";
-    }
-    @GetMapping(value = "/home")
+    @Autowired
+    private IRoleService roleService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+//    @GetMapping(value = "/")
+//    public String _login() {
+//        return "redirect:/login";
+//    }
+    @GetMapping("/home")
     public ModelAndView home(HttpServletRequest req, HttpSession session) {
         ModelAndView mv = new ModelAndView("redirect:/login");
 
@@ -116,40 +128,70 @@ public class CommerceController {
     public ModelAndView loginP(@RequestParam("username") String username, @RequestParam("password") String password,
                                @RequestParam(name = "myRemember", required=false) boolean remember, HttpSession session,
                                HttpServletResponse resp) {
-        ModelAndView mv = new ModelAndView("login");
-        Customer customer = customerService.selectByUsername(username);
+//        ModelAndView mv = new ModelAndView("login");
+//        Customer customer = customerService.selectByUsername(username);
+//
+//        if (customer == null) {
+//            mv.addObject("status", "error");
+//            mv.addObject("message", "Account not registered");
+//        } else if (!customer.getPassword().equals(password)){
+//            mv.addObject("status", "error");
+//            mv.addObject("message", "Wrong password");
+//        } else {
+//            if (remember) {
+//                Cookie cookie = new Cookie("customerId", customer.getId().toString());
+//                cookie.setMaxAge(60 * 60 * 24 * 30);
+//                resp.addCookie(cookie);
+//            }
+//            session.setAttribute("customerId", customer.getId().toString());
+//            session.setAttribute("username", customer.getUsername());
+//            mv.setViewName("redirect:/home");
+//        }
+//        return mv;
 
-        if (customer == null) {
-            mv.addObject("status", "error");
-            mv.addObject("message", "Account not registered");
-        } else if (!customer.getPassword().equals(password)){
-            mv.addObject("status", "error");
-            mv.addObject("message", "Wrong password");
-        } else {
-            if (remember) {
-                Cookie cookie = new Cookie("customerId", customer.getId().toString());
-                cookie.setMaxAge(60 * 60 * 24 * 30);
-                resp.addCookie(cookie);
+        try {
+            // Gọi hàm authenticate để xác thực thông tin đăng nhập
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            ModelAndView mv = new ModelAndView("/home");
+            Customer customer = customerService.selectByUsername(username);
+            if (!authentication.isAuthenticated()) {
+                mv.addObject("status", "error");
+                mv.addObject("message", "Account not registered");
+            } else {
+                if (remember) {
+                    Cookie cookie = new Cookie("customerId", customer.getId().toString());
+                    cookie.setMaxAge(60 * 60 * 24 * 30);
+                    resp.addCookie(cookie);
+                }
+                session.setAttribute("customerId", customer.getId().toString());
+                session.setAttribute("username", customer.getUsername());
+//                mv.setViewName("/home");
+//                mv.setViewName("redirect:/home");
             }
-            session.setAttribute("customerId", customer.getId().toString());
-            session.setAttribute("username", customer.getUsername());
-            mv.setViewName("redirect:/home");
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("/login");
         }
-        return mv;
     }
 
     @PostMapping(value = "/register")
     public ModelAndView registerP(@RequestParam("name") String name, @RequestParam("username") String username,
-                            @RequestParam("email") String email, @RequestParam("password") String password,
-                            @RequestParam("gender") String gender, HttpSession session,
-                            @RequestParam(name = "dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dob) {
+                                  @RequestParam("email") String email, @RequestParam("password") String password,
+                                  @RequestParam("gender") String gender, HttpSession session,
+                                  @RequestParam(name = "dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dob,
+                                  @RequestParam("role") String role) {
         ModelAndView mv = new ModelAndView("register");
 
         if (customerService.selectByUsername(username) != null) {
             mv.addObject("status", "warning");
             mv.addObject("message", "Username already exists");
         } else {
-            Customer customer =customerService.insert(new Customer(name, username, email, password, dob, gender));
+            Role newrole = roleService.findById(Integer.parseInt(role));
+            Customer customer =customerService.insert(new Customer(UUID.randomUUID(), name, username, email, password, dob, gender, newrole));
             if (customer != null) {
                 mv.addObject("status", "success");
                 mv.addObject("message", "Account has been successfully registered");
