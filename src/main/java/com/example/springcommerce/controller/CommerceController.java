@@ -10,6 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,8 +54,10 @@ public class CommerceController {
 //    public String _login() {
 //        return "redirect:/login";
 //    }
+
+    //@PageableDefault(size = 8): Có 8 sản phẩm hiển thị trên màn hình
     @GetMapping("/home")
-    public ModelAndView home(HttpServletRequest req, HttpSession session) {
+    public ModelAndView home(HttpServletRequest req, HttpSession session, @PageableDefault(size = 8) Pageable pageable) {
         ModelAndView mv = new ModelAndView("redirect:/login");
 
         if (session != null && session.getAttribute("customerId") != null) {
@@ -65,7 +70,9 @@ public class CommerceController {
             }
             String username = (String) session.getAttribute("username");
             List<Category> categories = categoryService.getAllCategories();
-            List<Product> products = productService.selectAll();
+
+            //==> Thay List thành Page rồi truyền thêm pageable vô nha e
+            Page<Product> products = productService.selectAll(pageable);
             mv.addObject("username", username);
             mv.addObject("products", products);
             mv.addObject("categories", categories);

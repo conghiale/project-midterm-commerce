@@ -4,6 +4,8 @@ import com.example.springcommerce.model.Category;
 import com.example.springcommerce.model.Product;
 import com.example.springcommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +17,10 @@ public class ProductService implements IProductService{
     @Autowired
     private ProductRepository productRepository;
 
+    //Thay List thành Page và thêm tham số Pageable trong selectAll. Sửa bên IProductService luôn nha e
     @Override
-    public List<Product> selectAll() {
-        return productRepository.findAll();
+    public Page<Product> selectAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
 

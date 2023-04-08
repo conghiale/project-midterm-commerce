@@ -49,7 +49,7 @@
                     <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
                     <div class="dropdown-content">
                         <a href="#">User</a>
-                        <a href="#">Log Out</a>
+                        <a href="/logout">Log Out</a>
                     </div>
                 </div>
             </li>
@@ -103,83 +103,30 @@
 </div>
 
 
-<div class="present">
-    <ul class="row">
-        <li class="col-md-3">
-            <div class="product-box ">
-                <div class="product-image">
-                    <img src="img/imgProduct.jpg" alt="Product Image">
-                </div>
-                <div class="product-details">
-                    <h2 class="product-name">Product Name </h2>
-                    <p class="product-price">$19.99</p>
-                    <div class="product-color-brand">
-                        <p class="product-color"><b>Color: </b> <span class="product-color-value">Red</span></p>
-                        <p class="product-brand"><b>Brand: </b> <span class="product-brand-value">Name</span></p>
-                    </div>
-                    <p class="product-desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</p>
-                </div>
-                <div class="product-footer">
-                    <div class="product-footer-button button-add-to-card">
-                        <button type="button" class="btn btn-danger">Delete</button>
-                    </div>
-                    <div class="product-footer-button button-add-to-card">
-                        <button type="button" class="btn btn-primary">Edit</button>
-                    </div>
-                    <div class="product-footer-button button-detai">
-                        <button type="button" class="btn btn-info">Buy</button>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="col-3">
-            <div class="product-box ">
-                <div class="product-image">
-                    <img src="img/imgProduct.jpg" alt="Product Image">
-                </div>
-                <div class="product-details">
-                    <h2 class="product-name">Product Name </h2>
-                    <p class="product-price">$19.99</p>
-                    <div class="product-color-brand">
-                        <p class="product-color"><b>Color: </b> <span class="product-color-value">Red</span></p>
-                        <p class="product-brand"><b>Brand: </b> <span class="product-brand-value">Name</span></p>
-                    </div>
-                    <p class="product-desc">Cookie và Session là hai phương pháp sử dụng để quản lý các phiên làm việc giữa người sử dụng và hệ thống, nói cách khác cả hai đều có thể được dùng để lưu trữ tạm thời thông tin của người dùng, và từ đó hệ thống có thể đưa ra những quyết định về quyền hạn hoặc là những tùy chọn riêng tư.</p>
-                </div>
-                <div class="product-footer">
-                    <div class="product-footer-button button-add-to-card">
-                        <button type="button" class="btn btn-danger">Delete</button>
-                    </div>
-                    <div class="product-footer-button button-add-to-card">
-                        <button type="button" class="btn btn-primary">Edit</button>
-                    </div>
-                    <div class="product-footer-button button-detai">
-                        <button type="button" class="btn btn-info">Buy</button>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
-
-
 
 <h1>Dynamic Pagination</h1>
+
+<!--Phân trang-->
 <div class="page-container">
-    <button class="first-page" disabled>
-        <i class="fas fa-angle-double-left"></i>
-    </button>
-    <button class="prev-page" disabled>
-        <i class="fas fa-angle-left"></i>
-    </button>
-    <div id="pagination"></div>
-    <button class="next-page">
-        <i class="fas fa-angle-right"></i>
-    </button>
-    <button class="last-page">
-        <i class="fas fa-angle-double-right"></i>
-    </button>
+    <a th:href="@{'/home'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">
+        <button class="prev-page">
+            <i class="fas fa-angle-left"></i>
+        </button>
+    </a>
+
+<!--    <div id="pagination" ></div>-->
+    <div>
+        <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+    </div>
+
+    </span>
+    <a th:href="@{'/home'(page=${products.number + 1})}" th:if="${products.hasNext()}">
+        <button class="next-page">
+            <i class="fas fa-angle-right"></i>
+        </button>
+    </a>
 </div>
+
 
 <div class="settings">
     <div class="form-input">
